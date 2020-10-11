@@ -21,6 +21,8 @@ app.get("/", (req, res) => {
 
 app.use("/landingstats", require("./routes/stats/stats.router")); //dont add jwt middleware
 
+console.log("env - ", process.env.NODE_ENV);
+
 app.listen(PORT, () => {
   console.log("listning on " + PORT);
 });

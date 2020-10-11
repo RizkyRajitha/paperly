@@ -1,5 +1,8 @@
 const { Pool } = require("pg");
-const connectionString = require("../config/config").DBURL; //'postgresql://dbuser:secretpassword@database.server.com:3211/mydb'
+const connectionString =
+  process.env.NODE_ENV === "production"
+    ? process.env.NODE_ENV
+    : require("../config/config").DBURL; //'postgresql://dbuser:secretpassword@database.server.com:3211/mydb'
 
 const pool = new Pool({
   connectionString: connectionString,

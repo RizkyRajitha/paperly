@@ -3,14 +3,14 @@ const db = require("../../db/index");
 exports.getStats = (req, res) => {
   console.log("get landing stats");
 
-  let query = "SELECT SUM(submission) FROM landingstats";
+  let query = "SELECT submission FROM landingstats";
   // let query = "SELECT * FROM landingstats";
   db.query(query, [], (err, result) => {
     if (err) {
       result.status(500).send(err);
     }
-    console.log(result.rows[0].sum);
-    res.json({ status: "success", submissions: result.rows[0].sum });
+    console.log(result.rowCount);
+    res.json({ status: "success", submissions: result.rowCount });
   });
 };
 

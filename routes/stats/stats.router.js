@@ -8,6 +8,6 @@ const landingStats = require("./stats.routes");
 // console.log(landingStats.paperSubmission)
 
 router.get("/getstats", landingStats.getStats);
-router.get("/papersubmission/:submissions", landingStats.paperSubmission);
+router.get("/papersubmission", landingStats.paperSubmission);
 
 module.exports = router;

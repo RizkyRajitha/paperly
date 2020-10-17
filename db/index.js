@@ -13,7 +13,12 @@ module.exports = {
     const start = Date.now();
     return pool.query(text, params, (err, res) => {
       const duration = Date.now() - start;
-      console.log("executed query", { text, duration });
+
+      console.log("executed query", {
+        text,
+        duration,
+        top2rows: res.rows.slice(0, 2) || [],
+      });
       callback(err, res);
     });
   },

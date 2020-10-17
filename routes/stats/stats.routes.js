@@ -38,17 +38,39 @@ exports.paperSubmission = (req, res) => {
       }
 
       let query2 =
-        "SELECT submission,COUNT(submission) FROM landingstats where paper='physics' and paperyear=2011  group by submission ";
-      db.query(query2, [], (err, result) => {
-        if (err) {
-          console.log(err);
-          res.status(500).send(err);
-          return;
+        "SELECT submission,COUNT(submission) FROM landingstats where paper=$1 and paperyear=$2  group by submission ";
+      db.query(
+        query2,
+        [req.query.paper, req.query.paperyear],
+        (err, result) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send(err);
+            return;
+          }
+          console.log(result.rowCount);
+          console.log(result.rows);
+
+          let graphData = result.rows.map((ele) => {
+            return { x: ele.submission, y: ele.count };
+          });
+          console.log(graphData);
+
+          function compare(a, b) {
+            if (a.x < b.x) {
+              return -1;
+            }
+            if (a.x > b.x) {
+              return 1;
+            }
+            return 0;
+          }
+
+          graphData.sort(compare);
+          console.log(graphData);
+          res.json({ status: "success", submissionGraphData: graphData });
         }
-        console.log(result.rowCount);
-        console.log(result.rows);
-        res.json({ status: "success", submissionGraphData: result.rows });
-      });
+      );
 
       // console.log(result);
       // let query2 = "SELECT submission FROM landingstats";

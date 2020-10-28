@@ -17,6 +17,8 @@ exports.getStats = (req, res) => {
   var ipaddr = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
   console.log("ipaddr");
   console.log(ipaddr);
+  console.log(req.headers["x-forwarded-for"]);
+  console.log(req.connection.remoteAddress);
 
   // SELECT  COUNT(DISTINCT town) FROM user
 };

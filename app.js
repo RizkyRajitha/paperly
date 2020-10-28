@@ -9,12 +9,14 @@ const PORT = process.env.PORT || 5000;
 
 // Enable if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
 // see https://expressjs.com/en/guide/behind-proxies.html
-app.set('trust proxy', 1);
+app.set("trust proxy", 1);
 
 const apiLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 60 minutes
   max: 100,
   headers: true,
+  message:
+    "Too many requests",
 });
 
 // only apply to requests that begin with /landingstats/papersubmission/

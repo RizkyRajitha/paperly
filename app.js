@@ -9,14 +9,13 @@ const PORT = process.env.PORT || 5000;
 
 // Enable if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
 // see https://expressjs.com/en/guide/behind-proxies.html
-app.set("trust proxy", 1);
+// app.set("trust proxy", 1);
 
 const apiLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 60 minutes
   max: 100,
   headers: true,
-  message:
-    "Too many requests",
+  message: "Too many requests",
 });
 
 // only apply to requests that begin with /landingstats/papersubmission/
@@ -33,6 +32,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/landingstats", require("./routes/stats/stats.router")); //dont add jwt middleware
+app.use("/mathjax", require("./routes/mathjax/mathjax.router"));
 
 console.log("env - ", process.env.NODE_ENV);
 

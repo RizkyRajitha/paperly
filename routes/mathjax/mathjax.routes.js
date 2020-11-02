@@ -13,9 +13,10 @@ mjAPI.start();
 exports.getImage = (req, res) => {
   console.log("get math image");
   // var yourMath = `\\frac{a}{1-a^2}`; // "E = mc^2"; `\\sum_{i=0}^n i^2 = \\frac{(n^2+n)(2n+1)}{6}`
-  var yourMath = `${req.query.equation}`; //`\\ce{Hg^2+ ->[I-] HgI2 ->[I-] [Hg^{II}I4]^2-}`; //
+  let yourMath = `${req.query.equation}`; //`\\ce{Hg^2+ ->[I-] HgI2 ->[I-] [Hg^{II}I4]^2-}`; //
 
   console.log(yourMath);
+  console.log(req.query.env);
   mjAPI.typeset(
     {
       math: yourMath,
@@ -28,8 +29,8 @@ exports.getImage = (req, res) => {
         console.log(img);
 
         let cachePolicy =
-          process.env.NODE_ENV === "production"
-            ? "max-age="
+          req.query.env === "production"
+            ? "public, max-age=604800"
             : "max-age=0, no-cache, no-store, must-revalidate";
 
         res.set("Cache-Control", cachePolicy);

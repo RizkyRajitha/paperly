@@ -28,6 +28,7 @@ exports.getImage = (req, res) => {
         let img = data.svg.replace(/"currentColor"/g, '"white"');
         console.log(img);
 
+        //for 7 days
         let cachePolicy =
           req.query.env === "production"
             ? "public, max-age=604800"

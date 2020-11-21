@@ -9,5 +9,7 @@ const landingStats = require("./stats.routes");
 
 router.get("/getstats", landingStats.getStats);
 router.get("/papersubmission", landingStats.paperSubmission);
+router.post("/addfeedback", landingStats.addFeedback);
+
 
 module.exports = router;
